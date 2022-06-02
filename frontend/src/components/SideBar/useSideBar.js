@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 function useSideBar(window) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
+  const { pathname } = location;
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -13,6 +16,7 @@ function useSideBar(window) {
     mobileOpen,
     handleDrawerToggle,
     container,
+    pathname,
   };
 }
 
