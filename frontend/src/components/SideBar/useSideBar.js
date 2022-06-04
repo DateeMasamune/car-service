@@ -1,13 +1,19 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function useSideBar(window) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
   const { pathname } = location;
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    navigate('/login');
   };
 
   const container = window !== undefined ? () => window().document.body : undefined;
@@ -17,6 +23,7 @@ function useSideBar(window) {
     handleDrawerToggle,
     container,
     pathname,
+    handleLogout,
   };
 }
 

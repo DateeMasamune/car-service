@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const keys = require('../config/keys')
 const Datastore = require('nedb');
 
 
@@ -11,28 +12,32 @@ db.users = new Datastore({ filename: 'NeDB/users.db', autoload: true });
 db.users.loadDatabase();
 
 module.exports.login = async (req, res) => {
-	const candidate = await User.findOne({email: req.body.email})
-
-	if (candidate) {
-		const passwordResult = bcrypt.compareSync(req.body.password, candidate.password)
-		if (passwordResult) {
-			const token = jwt.sign({
-				email: candidate.email,
-				userId: candidate._id
-			}, keys.jwt, {expiresIn: 60 * 60})
-			res.status(200).json({
-				token: `Bearer ${token}`
-			})
-		} else {
-			res.status(401).json({
-				message: 'Password invalid again pls'
-			})
-		}
-	} else {
-		res.status(404).json({
-			message: 'User email not found'
-		})
-	}
+	db.users.findOne({email: req.body.email}, (err, candidate) => {
+    if (candidate) {
+      const passwordResult = bcrypt.compareSync(req.body.password, candidate.password)
+      if (passwordResult) {
+        const token = jwt.sign({
+          email: candidate.email,
+          userId: candidate._id
+        }, keys.jwt, {expiresIn: 60 * 60})
+        res.status(200).json({
+          token: `Bearer ${token}`,
+          userId: candidate._id,
+          firstName: candidate.firstName,
+          lastName: candidate.lastName,
+          role: candidate.role
+        })
+      } else {
+        res.status(401).json({
+          message: 'Пароль не верный'
+        })
+      }
+    } else {
+      res.status(404).json({
+        message: 'Пользователь с такой почтой не найден'
+      })
+    }
+  })
 }
 
 module.exports.register = async (req, res) => {
@@ -49,6 +54,7 @@ module.exports.register = async (req, res) => {
         bcrypt.hashSync(password, salt),
         req.body.firstName,
         req.body.lastName,
+        req.body.role,
       )
       try {
         db.users.insert(user, (err, user) => {

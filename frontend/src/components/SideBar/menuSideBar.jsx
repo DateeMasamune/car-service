@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Construction, DriveEta, Reply,
+  Construction, DriveEta, Reply, AccountCircle,
 } from '@mui/icons-material';
 
 const menuSideBar = [
@@ -21,6 +21,12 @@ const menuSideBar = [
     name: 'История',
     id: 3,
     icon: <Reply />,
+  },
+  {
+    link: '/profile',
+    name: 'Мой профиль',
+    id: 4,
+    icon: <AccountCircle />,
   },
 ];
 

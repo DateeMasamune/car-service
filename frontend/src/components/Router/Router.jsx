@@ -11,18 +11,70 @@ import Registration from '../Registration/Registration';
 import ServiceStation from '../ServiceStation/ServiceStation';
 import SinglePageCarService from '../ServiceStation/SinglePageCarService/SinglePageCarService';
 import SideBar from '../SideBar/SideBar';
+import RequireAuth from '../RequireAuth/RequireAuth';
+import Profile from '../Profile/Profile';
 
 function Router() {
   return (
     <BrowserRouter>
       <SideBar>
         <Routes>
-          <Route path="/" element={<ServiceStation />} />
-          <Route path="/car-park" element={<CarPark />} />
-          <Route path="/car-park/single-car-page/:id" element={<SingleCarPage />} />
-          <Route path="/history-maintenance" element={<HistoryMaintenance />} />
-          <Route path="/maintenance/:id" element={<Maintenance />} />
-          <Route path="/single-page-car-service/:id" element={<SinglePageCarService />} />
+          <Route
+            path="/"
+            element={(
+              <RequireAuth>
+                <ServiceStation />
+              </RequireAuth>
+            )}
+          />
+          <Route
+            path="/car-park"
+            element={(
+              <RequireAuth>
+                <CarPark />
+              </RequireAuth>
+          )}
+          />
+          <Route
+            path="/car-park/single-car-page/:id"
+            element={(
+              <RequireAuth>
+                <SingleCarPage />
+              </RequireAuth>
+          )}
+          />
+          <Route
+            path="/history-maintenance"
+            element={(
+              <RequireAuth>
+                <HistoryMaintenance />
+              </RequireAuth>
+            )}
+          />
+          <Route
+            path="/maintenance/:id"
+            element={(
+              <RequireAuth>
+                <Maintenance />
+              </RequireAuth>
+            )}
+          />
+          <Route
+            path="/single-page-car-service/:id"
+            element={(
+              <RequireAuth>
+                <SinglePageCarService />
+              </RequireAuth>
+            )}
+          />
+          <Route
+            path="/profile"
+            element={(
+              <RequireAuth>
+                <Profile />
+              </RequireAuth>
+            )}
+          />
           <Route path="/registration" element={<Registration />} />
           <Route path="/login" element={<Login />} />
         </Routes>

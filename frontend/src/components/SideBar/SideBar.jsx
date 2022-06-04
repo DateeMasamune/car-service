@@ -3,6 +3,7 @@ import React from 'react';
 import {
   AppBar,
   Box,
+  Button,
   CssBaseline, Drawer, IconButton, Toolbar, Typography,
 } from '@mui/material';
 import { Menu } from '@mui/icons-material';
@@ -18,6 +19,7 @@ function SideBar({ window, children }) {
     handleDrawerToggle,
     container,
     pathname,
+    handleLogout,
   } = useSideBar(window);
 
   switch (pathname) {
@@ -36,7 +38,7 @@ function SideBar({ window, children }) {
               ml: { sm: `${drawerWidth}px` },
             }}
           >
-            <Toolbar>
+            <Toolbar sx={{ justifyContent: 'space-between' }}>
               <IconButton
                 color="inherit"
                 aria-label="open drawer"
@@ -49,6 +51,12 @@ function SideBar({ window, children }) {
               <Typography variant="h6" noWrap component="div">
                 Система техобслуживания
               </Typography>
+              <Button
+                sx={{ color: 'white' }}
+                onClick={handleLogout}
+              >
+                Выйти
+              </Button>
             </Toolbar>
           </AppBar>
           <Box
