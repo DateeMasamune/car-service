@@ -43,11 +43,13 @@ function ServiceStation() {
       <BoxStyled>
         {serviceStation.map((service) => (
           <CustomCard
-            key={service.id}
+            // eslint-disable-next-line no-underscore-dangle
+            key={service._id}
             icon={carServiceIcon}
             name={service.name}
             description={service.description}
-            link={`/single-page-car-service/${service.id}`}
+            // eslint-disable-next-line no-underscore-dangle
+            link={`/single-page-car-service/${service._id}`}
           />
         ))}
       </BoxStyled>

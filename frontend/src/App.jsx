@@ -1,12 +1,15 @@
 import { SnackbarProvider } from 'notistack';
 import React from 'react';
+import Auth from './components/Auth';
 import Router from './components/Router/Router';
 
 function App() {
   return (
-    <SnackbarProvider>
-      <Router />
-    </SnackbarProvider>
+    <Auth>
+      <SnackbarProvider>
+        <Router />
+      </SnackbarProvider>
+    </Auth>
   );
 }
 

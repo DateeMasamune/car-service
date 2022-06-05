@@ -40,7 +40,8 @@ function DialogAddCar({ handlerAddCar, addCar, setLoad }) {
             {serviceStation.map((serviceName) => (
               <MenuItem
                 key={serviceName.name}
-                value={serviceName.id}
+                // eslint-disable-next-line no-underscore-dangle
+                value={serviceName._id}
               >
                 {serviceName.name}
               </MenuItem>

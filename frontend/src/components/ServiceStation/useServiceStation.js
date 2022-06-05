@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import useUpdateReduxStore from '../../customHooks/useUpdateReduxStore';
 import { writeServiceStation } from '../../redux/actions/actions';
+import post from '../../api/post';
+import get from '../../api/get';
 
 function useServiceStation() {
   const [settings, setSettings] = useState([0]);
@@ -15,6 +17,7 @@ function useServiceStation() {
   const [load, setLoad] = useState(false);
   const dispatch = useDispatch();
   const serviceStation = useSelector((store) => store.serviceStation);
+  const user = useSelector((store) => store.user);
   const { enqueueSnackbar } = useSnackbar();
 
   const handlerOpenDialog = () => {
@@ -32,18 +35,29 @@ function useServiceStation() {
   const handlerAddCarServiceStation = () => {
     setOpen(false);
     const newServiceStation = {
-      id: Math.random().toString(36).substr(2, 9),
+      // id: Math.random().toString(36).substr(2, 9),
       name: carServiceName,
       description: descriptonServiceStation,
       supportedСars: {
         ...allCarBrands,
       },
+      userId: user.userId,
     };
-    const updateServiceStation = [...serviceStation, newServiceStation];
-    useUpdateReduxStore(setLoad, dispatch, writeServiceStation, updateServiceStation, 'serviceStationMock')
-      .then(() => enqueueSnackbar('Автосервис добавлен', { variant: 'success' }));
-    setCarServiceName('');
-    setDescriptonServiceStation('');
+    post(newServiceStation, 'http://localhost:4000/api/autoService/create', user.token)
+      .then((res) => {
+        console.log(res);
+        if (res) {
+          const updateServiceStation = [...serviceStation, res.data];
+          useUpdateReduxStore(setLoad, dispatch, writeServiceStation, updateServiceStation)
+            .then(() => enqueueSnackbar('Автосервис добавлен', { variant: 'success' }))
+            .finally(() => setLoad(false));
+          setCarServiceName('');
+          setDescriptonServiceStation('');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handlerDescriptionServiceStation = (event) => {
@@ -57,6 +71,18 @@ function useServiceStation() {
       setButtonActive(true);
     }
   }, [allCarBrands, carServiceName]);
+
+  useEffect(() => {
+    setLoad(true);
+    get('http://localhost:4000/api/autoService/allService', user.token)
+      .then((res) => {
+        if (res) {
+          console.log(res.data);
+          dispatch(writeServiceStation(res.data));
+        }
+      })
+      .finally(() => setLoad(false));
+  }, []);
 
   return {
     serviceStation,

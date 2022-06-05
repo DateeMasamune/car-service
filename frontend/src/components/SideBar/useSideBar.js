@@ -12,7 +12,7 @@ function useSideBar(window) {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('user');
+    localStorage.setItem('user', JSON.stringify({}));
     navigate('/login');
   };
 

@@ -1,12 +1,12 @@
 const useUpdateReduxStore = (setLoad, dispatch, action, data, localStorageItem) => {
   setLoad(true);
   return new Promise((res) => {
-    setTimeout(() => {
-      dispatch(action(data));
+    dispatch(action(data));
+    if (localStorageItem) {
       localStorage.setItem(localStorageItem, JSON.stringify(data));
-      setLoad(false);
-      res('ready');
-    }, 1000);
+    }
+    setLoad(false);
+    res('ready');
   });
 };
 

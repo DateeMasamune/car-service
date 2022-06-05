@@ -26,11 +26,13 @@ function CarPark() {
       <BoxStyled>
         {carParkRedux.filter(filterReadyMaintenance).map((car) => (
           <CustomCard
-            key={car.id}
+            // eslint-disable-next-line no-underscore-dangle
+            key={car._id}
             icon={carIcon}
             name={car.brand}
             description={`Находится на техобслуживании у сервиса ${description(car.serviceId)}`}
-            link={`/car-park/single-car-page/${car.id}`}
+            // eslint-disable-next-line no-underscore-dangle
+            link={`/car-park/single-car-page/${car._id}`}
           />
         ))}
       </BoxStyled>

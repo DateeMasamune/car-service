@@ -1,6 +1,6 @@
 const serviceStationMock = [
   {
-    id: Math.random().toString(36).substr(2, 9),
+    _id: Math.random().toString(36).substr(2, 9),
     name: 'Premium class',
     description: 'Наш сервис по обслуживанию автомобилей премиум класса, у нас широкий ассортимент запчастей, загляни к нам.',
     supportedСars: {
@@ -37,7 +37,7 @@ const serviceStationMock = [
     },
   },
   {
-    id: Math.random().toString(36).substr(2, 9),
+    _id: Math.random().toString(36).substr(2, 9),
     name: 'Middle class',
     description: 'Наш сервис по обслуживанию автомобилей среднегшо класса, у нас широкий ассортимент запчастей, загляни к нам.',
     supportedСars: {

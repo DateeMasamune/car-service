@@ -1,7 +1,7 @@
 const axios = require('axios');
 
-async function post(data, url, token) {
-  const response = await axios.post(url, data, {
+async function get(url, token) {
+  const response = await axios.get(url, {
     headers: {
       Authorization: token,
     },
@@ -9,4 +9,4 @@ async function post(data, url, token) {
   return response;
 }
 
-export default post;
+export default get;

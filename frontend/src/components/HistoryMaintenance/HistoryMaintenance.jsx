@@ -38,8 +38,10 @@ function HistoryMaintenance() {
           <MenuItem value="">Все станции</MenuItem>
           {serviceStation.map((serviceName) => (
             <MenuItem
-              key={serviceName.id}
-              value={serviceName.id}
+              // eslint-disable-next-line no-underscore-dangle
+              key={serviceName._id}
+              // eslint-disable-next-line no-underscore-dangle
+              value={serviceName._id}
             >
               {serviceName.name}
             </MenuItem>
@@ -50,7 +52,8 @@ function HistoryMaintenance() {
       <Skeleton text="Автомобили еще не проходили тех обслуживание" />
       )}
       {carPark.filter(filterMaintenance).map((car) => (
-        <List onClick={() => goToSingleCar(car.id)} key={car.id} sx={{ width: '100%', bgcolor: 'background.paper', cursor: 'pointer' }}>
+        // eslint-disable-next-line no-underscore-dangle
+        <List onClick={() => goToSingleCar(car._id)} key={car._id} sx={{ width: '100%', bgcolor: 'background.paper', cursor: 'pointer' }}>
           <ListItem alignItems="flex-start">
             <ListItemAvatar>
               <Avatar alt="Remy Sharp" src={wheel} />

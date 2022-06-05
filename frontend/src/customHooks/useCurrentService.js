@@ -6,8 +6,10 @@ import useCurrentCar from './useCurrentCar';
 function useCurrentService() {
   const serviceStation = useSelector((store) => store.serviceStation);
   const { currentCar, carPark } = useCurrentCar();
+  console.log(currentCar);
   const services = useMemo(() => (
-    serviceStation?.find((service) => service.id === currentCar.serviceId)
+    // eslint-disable-next-line no-underscore-dangle
+    serviceStation?.find((service) => service._id === currentCar.serviceId)
   ), [carPark, serviceStation]);
 
   return {

@@ -8,7 +8,8 @@ function useCurrentCar() {
   const pageId = location[location.length - 1];
 
   const currentCar = useMemo(() => (
-    carPark.find((car) => car.id === pageId)
+    // eslint-disable-next-line no-underscore-dangle
+    carPark.find((car) => car._id === pageId)
   ), [carPark]);
 
   return {

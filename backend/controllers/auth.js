@@ -70,3 +70,14 @@ module.exports.register = async (req, res) => {
     }
   })
 }
+
+module.exports.user = async (req, res) => {
+  console.log('user',req.params.id);
+  db.users.findOne({ _id: req.params.id }, (err, user) => {
+    if (user) {
+      res.status(201).json(user)
+    } else {
+      res.status(404).json('token incorrect')
+    }
+  })
+}

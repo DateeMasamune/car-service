@@ -8,7 +8,8 @@ function useSinglePageCarService() {
   const navigate = useNavigate();
   const reduxStore = useSelector((store) => store.serviceStation);
   const currentService = useMemo(() => (
-    reduxStore.find((service) => service.id === pageId)
+    // eslint-disable-next-line no-underscore-dangle
+    reduxStore.find((service) => service._id === pageId)
   ), [reduxStore]);
 
   const backPage = () => (navigate(-1));
